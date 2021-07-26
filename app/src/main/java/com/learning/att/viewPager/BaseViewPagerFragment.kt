@@ -13,15 +13,17 @@ class BaseViewPagerFragment : Fragment() {
 
     lateinit var views: Array<View>
     lateinit var viewPager: ViewPager
+    lateinit var titles: Array<String>
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-//        Log.d("zjj", "viewPager:$viewPager")
+        Log.d("zjj", "BaseViewPagerFragment onCreate")
         var infalter = LayoutInflater.from(context)
 
         views = arrayOf(
             infalter.inflate(R.layout.layout_first_pager, null),
             infalter.inflate(R.layout.layout_second_pager, null)
         )
+        titles = arrayOf("First","Second")
     }
 
     override fun onCreateView(
@@ -37,7 +39,12 @@ class BaseViewPagerFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewPager.adapter = BasePagerAdapter(views)
+        viewPager.adapter = BasePagerAdapter(views, titles)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        Log.d("zjj", "BaseViewPagerFragment onDestroy")
     }
 }
 
